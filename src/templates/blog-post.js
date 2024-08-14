@@ -1,44 +1,23 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-import { motion } from "framer-motion"
 
 const BlogPost = ({ data }) => {
   const {
     title,
     publishedDate,
     author,
-    featuredImage,
     content,
-    relatedBlogPosts,
+    featuredImage,
   } = data.contentfulPageBlogPost
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <h1 className="text-4xl font-bold">{title}</h1>
-      <p className="text-gray-600">{publishedDate}</p>
-      <p className="text-gray-600">By {author.name}</p>
-      {featuredImage && (
-        <img src={featuredImage.file.url} alt={title} className="w-full h-auto mb-6" />
-      )}
-      <div className="prose">
-        {documentToReactComponents(JSON.parse(content.raw))}
-      </div>
-      <h3 className="text-2xl font-semibold mt-8">Related Blog Posts</h3>
-      <ul>
-        {relatedBlogPosts.map(post => (
-          <li key={post.slug}>
-            <a href={`/blog/${post.slug}`} className="text-blue-500 hover:text-blue-700">
-              {post.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
+    <div className="container mx-auto p-4">
+      <h1 className="text-4xl font-bold mb-4">{title}</h1>
+      <p className="text-gray-600 mb-2">Published on {publishedDate} by {author.name}</p>
+      {featuredImage && <img src={featuredImage.file.url} alt={title} className="mb-6" />}
+      <div className="prose">{documentToReactComponents(JSON.parse(content.raw))}</div>
+    </div>
   )
 }
 
@@ -50,17 +29,13 @@ export const query = graphql`
       author {
         name
       }
+      content {
+        raw
+      }
       featuredImage {
         file {
           url
         }
-      }
-      content {
-        raw
-      }
-      relatedBlogPosts {
-        title
-        slug
       }
     }
   }

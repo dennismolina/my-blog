@@ -4,9 +4,9 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `My Blog`,  
-    description: `A blog built with Gatsby and Contentful, deployed on CloudPages.`,
-    author: `Dennis Molina`, 
+    title: `My Blog`,
+    description: `A simple blog built with Gatsby, React, Contentful, and Cloudflare Pages.`,
+    author: `Dennis Molina`,
   },
   plugins: [
     {
@@ -19,5 +19,7 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-react-helmet`,
   ],
 };
